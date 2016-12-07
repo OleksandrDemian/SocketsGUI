@@ -16,6 +16,8 @@ public class Main {
 	private Server server;
 	private Button btnSetPrefix;
 	private List list;
+	private Text nameInput;
+	private String name = "Nameless";
 
 	/**
 	 * Launch the application.
@@ -59,17 +61,20 @@ public class Main {
 		text = new Text(shlClient, SWT.BORDER);
 		text.setBounds(10, 353, 414, 21);
 		
+		nameInput = new Text(shlClient, SWT.BORDER);
+		nameInput.setBounds(244, 10, 76, 21);
+		
 		Button btnNewButton = new Button(shlClient, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				invia(text.getText());
+				invia(name, text.getText());
 				list.add("Client: " + text.getText());
 				text.setText("");
 			}
 		});
 		btnNewButton.setBounds(10, 380, 414, 25);
-		btnNewButton.setText("New Button");
+		btnNewButton.setText("Invia");
 		
 		text_1 = new Text(shlClient, SWT.BORDER);
 		text_1.setBounds(10, 10, 76, 21);
@@ -86,17 +91,27 @@ public class Main {
 		
 		list = new List(shlClient, SWT.BORDER);
 		list.setBounds(10, 37, 414, 310);
+		
+		Button btnSetName = new Button(shlClient, SWT.NONE);
+		btnSetName.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				name = nameInput.getText();
+			}
+		});
+		btnSetName.setBounds(326, 10, 75, 21);
+		btnSetName.setText("Set name");
 
 	}
 	
-	private void invia(String s){
-		client.invia(s);
+	private void invia(String name, String message){
+		client.invia(name, message);
 	}
 	
 	public void addFromServer(String message){
 		Display.getDefault().asyncExec(new Runnable(){
 			public void run(){
-				list.add("Server: " + message);
+				list.add(message);
 			}
 		});
 	}

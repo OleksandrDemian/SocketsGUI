@@ -26,12 +26,12 @@ public class Client {
 		}
 	}
 	
-	public void invia(String message) {
+	public void invia(String name, String message) {
 		// Mi connetto al server
 		PrintWriter out;
 		try {
 			out = new PrintWriter(s.getOutputStream(), true);
-			out.println(message);
+			out.println(name + ": " + message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
