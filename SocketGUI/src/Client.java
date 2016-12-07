@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -27,8 +28,10 @@ public class Client {
 	public void invia(String name, String message) {
 		PrintWriter out;
 		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			String hostname = ip.getHostName();
 			out = new PrintWriter(s.getOutputStream(), true);
-			out.println(name + ": " + message);
+			out.println(hostname + ": " + message);
 		} catch (IOException e) {
 			System.out.println("IOException in Client");
 			return;
