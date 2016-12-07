@@ -30,7 +30,8 @@ public class Server extends Thread {
 				BufferedReader in = new BufferedReader(isr);
 				String message = in.readLine();
 				System.out.println("Il server riceve:" + message);
-				main.addFromServer(message);
+				String s[] = message.split(": ");
+				main.addFromServer(s[1] + ": " + s[2]);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

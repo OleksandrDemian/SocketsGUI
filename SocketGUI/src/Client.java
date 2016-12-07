@@ -31,7 +31,7 @@ public class Client {
 			InetAddress ip = InetAddress.getLocalHost();
 			String hostname = ip.getHostName();
 			out = new PrintWriter(s.getOutputStream(), true);
-			out.println(hostname + ": " + message);
+			out.println(hostname + ": "+ name + ": " + message);
 		} catch (IOException e) {
 			System.out.println("IOException in Client");
 			return;
