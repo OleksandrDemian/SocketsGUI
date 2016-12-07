@@ -22,8 +22,6 @@ public class Server extends Thread {
 			s = ss.accept();
 		} catch (Exception e) {
 			System.out.println("Exception in Server.run()");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		while (true) {
 			InputStreamReader isr;
