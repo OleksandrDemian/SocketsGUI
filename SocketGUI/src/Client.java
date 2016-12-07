@@ -17,7 +17,7 @@ public class Client {
 	
 	public void setPrefix(String prefix){
 		try {
-			s = new Socket("Lab06_" + prefix, 9080);
+			s = new Socket(prefix, 9080);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
