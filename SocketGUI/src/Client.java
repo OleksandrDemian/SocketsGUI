@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -31,8 +32,10 @@ public class Client {
 		// Mi connetto al server
 		PrintWriter out;
 		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			String hostname = ip.getHostName();
 			out = new PrintWriter(s.getOutputStream(), true);
-			out.println(name + ": " + message);
+			out.println(hostname + ": " + message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
