@@ -17,9 +17,11 @@ public class Server extends Thread {
 	
 	public void run(){
 		try {
-			ss = new ServerSocket(9080);
+			if(ss == null)
+				ss = new ServerSocket(9080);	
 			s = ss.accept();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			System.out.println("Exception in Server.run()");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -34,9 +36,16 @@ public class Server extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			//s.close();
 		}
 	}
 	
+	private boolean isAvailable(int port){
+		try {
+			ServerSocket check = new ServerSocket(port);
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+	}
 }
