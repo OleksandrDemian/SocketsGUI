@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 public class Client {
 	Socket s;
+	
 	public void Client(){
 		try {
 			s = new Socket("localhost", 9080);

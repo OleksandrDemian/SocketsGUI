@@ -11,7 +11,7 @@ public class Main {
 
 	protected Shell shlClient;
 	private Text text;
-	private Text text_1;
+	private Text txtLab;
 	private Client client = new Client();
 	private Server server;
 	private Button btnSetPrefix;
@@ -69,25 +69,26 @@ public class Main {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				invia(name, text.getText());
-				list.add("Client: " + text.getText());
+				list.add(name + ": " + text.getText());
 				text.setText("");
 			}
 		});
 		btnNewButton.setBounds(10, 380, 414, 25);
 		btnNewButton.setText("Invia");
 		
-		text_1 = new Text(shlClient, SWT.BORDER);
-		text_1.setBounds(10, 10, 76, 21);
+		txtLab = new Text(shlClient, SWT.BORDER);
+		txtLab.setText("Lab06_");
+		txtLab.setBounds(10, 10, 76, 21);
 		
 		btnSetPrefix = new Button(shlClient, SWT.NONE);
 		btnSetPrefix.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				client.setPrefix(text_1.getText());
+				client.setPrefix(txtLab.getText());
 			}
 		});
 		btnSetPrefix.setBounds(92, 10, 75, 21);
-		btnSetPrefix.setText("Set prefix");
+		btnSetPrefix.setText("Set host");
 		
 		list = new List(shlClient, SWT.BORDER);
 		list.setBounds(10, 37, 414, 310);
