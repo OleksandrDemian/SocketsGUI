@@ -1,6 +1,5 @@
 package Zemian;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
@@ -10,9 +9,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Listener;
 
-public class Main {
+public class Main implements IMessageReceiver {
 
 	protected Shell shlClient;
 	private Text text;
@@ -23,6 +21,7 @@ public class Main {
 	private List list;
 	private Text nameInput;
 	private String name = "Nameless";
+	private Utente utente = new Utente();
 
 	/**
 	 * Launch the application.
@@ -65,31 +64,19 @@ public class Main {
 		shlClient.addShellListener(new ShellListener(){
 
 			@Override
-			public void shellActivated(ShellEvent arg0) {
-				
-			}
+			public void shellActivated(ShellEvent arg0) { return; }
+			@Override
+			public void shellDeactivated(ShellEvent arg0) { return; }
+			@Override
+			public void shellDeiconified(ShellEvent arg0) { return; }
+			@Override
+			public void shellIconified(ShellEvent arg0) { return; }
 
 			@Override
 			public void shellClosed(ShellEvent arg0) {
 				System.out.println("Chiudone");
 				server.stopServer();
 			}
-
-			@Override
-			public void shellDeactivated(ShellEvent arg0) {
-				
-			}
-
-			@Override
-			public void shellDeiconified(ShellEvent arg0) {
-				
-			}
-
-			@Override
-			public void shellIconified(ShellEvent arg0) {
-				
-			}
-			
 		});
 		
 		text = new Text(shlClient, SWT.BORDER);
@@ -102,8 +89,8 @@ public class Main {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				invia(name, text.getText());
-				list.add(name + ": " + text.getText());
+				invia(utente.getName(), text.getText());
+				list.add(utente.getName() + ": " + text.getText());
 				text.setText("");
 			}
 		});
@@ -131,7 +118,7 @@ public class Main {
 		btnSetName.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				name = nameInput.getText();
+				utente.setName(nameInput.getText());
 			}
 		});
 		btnSetName.setBounds(326, 10, 75, 21);
@@ -142,12 +129,23 @@ public class Main {
 	private void invia(String name, String message){
 		client.invia(name, message);
 	}
-	
-	public void addFromServer(String message){
+
+	@Override
+	public void receive(String from, String message) {
 		Display.getDefault().asyncExec(new Runnable(){
 			public void run(){
-				list.add(message);
+				list.add(from + ": " + message);
 			}
 		});
+	}
+
+	@Override
+	public void setHost(String host) {
+		
+	}
+
+	@Override
+	public String getHost() {
+		return null;
 	}
 }

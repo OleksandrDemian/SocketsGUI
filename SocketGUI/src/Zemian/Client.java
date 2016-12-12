@@ -20,13 +20,15 @@ public class Client {
 		try {
 			s = new Socket(prefix, 9080);
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			System.out.println("Client.setPrefix: Host non risponde");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Client.setPrefix: IOException");
 		}
 	}
 	
 	public void invia(String name, String message) {
+		if(s == null || !Utilities.isValid(message))
+			return;
 		PrintWriter out;
 		try {
 			InetAddress ip = InetAddress.getLocalHost();

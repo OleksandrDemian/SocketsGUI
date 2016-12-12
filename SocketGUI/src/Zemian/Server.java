@@ -9,34 +9,41 @@ public class Server extends Thread {
 	
 	ServerSocket ss;
 	Socket s;
-	Main main;
+	IMessageReceiver receiver;
 	
-	public Server(Main main){
-		this.main = main;
+	public Server(IMessageReceiver receiver){
+		this.receiver = receiver;
+		start();
+	}
+	
+	public Server(){
 		start();
 	}
 	
 	public void run(){
+		InputStreamReader isr;
 		try {
-			if(ss == null)
-				ss = new ServerSocket(9080);	
+			ss = new ServerSocket(9080);
 			s = ss.accept();
 		} catch (Exception e) {
 			System.out.println("Exception in Server.run()");
 		}
+		
 		while (true) {
-			InputStreamReader isr;
 			try {
 				isr = new InputStreamReader(s.getInputStream());
 				BufferedReader in = new BufferedReader(isr);
 				String message = in.readLine();
-				System.out.println("Il server riceve:" + message);
 				String s[] = message.split(": ");
-				main.addFromServer(s[1] + ": " + s[2]);
+				receiver.receive(s[1], s[2]);
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Server.run: Connesione chiusa");
 			}
 		}
+	}
+	
+	public void addReceiver(IMessageReceiver receiver){
+		
 	}
 	
 	public void stopServer(){
