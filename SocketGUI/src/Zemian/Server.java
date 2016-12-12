@@ -1,3 +1,4 @@
+package Zemian;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,6 +37,17 @@ public class Server extends Thread {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void stopServer(){
+		try {
+			//s.close();
+			ss.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Chiudo is server");
 	}
 	
 	private boolean isAvailable(int port){

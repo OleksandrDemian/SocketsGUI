@@ -1,11 +1,16 @@
+package Zemian;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Listener;
 
 public class Main {
 
@@ -57,6 +62,35 @@ public class Main {
 		shlClient = new Shell();
 		shlClient.setSize(450, 453);
 		shlClient.setText("Client");
+		shlClient.addShellListener(new ShellListener(){
+
+			@Override
+			public void shellActivated(ShellEvent arg0) {
+				
+			}
+
+			@Override
+			public void shellClosed(ShellEvent arg0) {
+				System.out.println("Chiudone");
+				server.stopServer();
+			}
+
+			@Override
+			public void shellDeactivated(ShellEvent arg0) {
+				
+			}
+
+			@Override
+			public void shellDeiconified(ShellEvent arg0) {
+				
+			}
+
+			@Override
+			public void shellIconified(ShellEvent arg0) {
+				
+			}
+			
+		});
 		
 		text = new Text(shlClient, SWT.BORDER);
 		text.setBounds(10, 353, 414, 21);
