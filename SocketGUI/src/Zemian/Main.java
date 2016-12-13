@@ -130,11 +130,6 @@ public class Main implements IMessageReceiver {
 	}
 
 	@Override
-	public void setHost(String host) {
-		
-	}
-
-	@Override
 	public String getHost() {
 		return null;
 	}

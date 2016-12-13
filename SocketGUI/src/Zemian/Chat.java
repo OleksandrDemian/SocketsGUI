@@ -1,8 +1,12 @@
 package Zemian;
 
+import java.util.ArrayList;
+
 public class Chat implements IMessageReceiver {
 	private Client client;
 	private String host;
+	private ArrayList<String> messages = new ArrayList<String>();
+	private boolean isActive;
 	
 	public Chat(String host){
 		this.host = host;
@@ -13,23 +17,17 @@ public class Chat implements IMessageReceiver {
 	public Chat(Client client){
 		this.client = client;
 	}
-	
-	@Override
-	public void setHost(String host) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public String getHost() {
-		// TODO Auto-generated method stub
-		System.out.println(host);
 		return host;
 	}
 
 	@Override
 	public void receive(String from, String name, String message) {
-		// TODO Auto-generated method stub
+		System.out.println("Chat con " + host + " receive -> " + message);
+		String temp = name + ": " + message;
+		messages.add(temp);
 	}
 
 }

@@ -8,13 +8,15 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 
 public class Messanger extends Shell {
 	private Text message;
 	private Text txtLab;
-	private Utente utente = new Utente();
+	//private Utente utente = new Utente();
 	private Server server;
-	Chat chat = null;
+	private Chat currentChat;
 	
 	/**
 	 * Launch the application.
@@ -42,8 +44,16 @@ public class Messanger extends Shell {
 	 */
 	public Messanger(Display display) {
 		super(display, SWT.SHELL_TRIM);
-		
 		server = new Server();
+		createContents();
+	}
+
+	/**
+	 * Create contents of the shell.
+	 */
+	protected void createContents() {
+		setText("SWT Application");
+		setSize(610, 477);
 		
 		List list = new List(this, SWT.BORDER);
 		list.setBounds(170, 10, 414, 383);
@@ -70,8 +80,9 @@ public class Messanger extends Shell {
 			public void widgetSelected(SelectionEvent e) {
 				String host = txtLab.getText();
 				if(Utilities.isAvailable(host)){
-					chat = new Chat(host);
+					Chat chat = new Chat(host);
 					allChats.add(host);
+					server.addReceiver(chat);
 				}
 			}
 		});
@@ -81,19 +92,22 @@ public class Messanger extends Shell {
 		txtLab = new Text(this, SWT.BORDER);
 		txtLab.setText("Lab06_");
 		txtLab.setBounds(10, 372, 154, 21);
-		createContents();
-	}
-	
-	void addChat(){
-		server.addReceiver(chat);
-	}
+		
+		this.addShellListener(new ShellListener(){
+			@Override
+			public void shellActivated(ShellEvent arg0) {}
+			@Override
+			public void shellDeactivated(ShellEvent arg0) {}
+			@Override
+			public void shellDeiconified(ShellEvent arg0) {}
+			@Override
+			public void shellIconified(ShellEvent arg0) {}
 
-	/**
-	 * Create contents of the shell.
-	 */
-	protected void createContents() {
-		setText("SWT Application");
-		setSize(610, 477);
+			@Override
+			public void shellClosed(ShellEvent arg0) {
+				server.stopServer();				
+			}
+		});
 
 	}
 

@@ -24,12 +24,6 @@ public class Bot extends Thread implements IMessageReceiver {
 	}
 
 	@Override
-	public void setHost(String host) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String getHost() {
 		// TODO Auto-generated method stub
 		return null;
