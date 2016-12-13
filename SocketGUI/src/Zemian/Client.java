@@ -8,20 +8,26 @@ import java.net.UnknownHostException;
 public class Client {
 	Socket s;
 	
-	public void Client(){
-		try {
+	public Client(String host) {
+		setPrefix(host);
+	}
+
+	public Client() {
+		/*try {
 			s = new Socket("localhost", 9080);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public void setPrefix(String prefix){
+		System.out.println("Client.setPrefix: Prefix: " + prefix);
 		try {
 			s = new Socket(prefix, 9080);
 		} catch (UnknownHostException e) {
 			System.out.println("Client.setPrefix: Host non risponde");
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("Client.setPrefix: IOException");
 		}
 	}

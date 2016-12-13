@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class Messanger extends Shell implements IMessageReceiver {
+public class Messanger extends Shell {
 	private Text message;
 	private Text txtLab;
 	private Utente utente = new Utente();
@@ -42,6 +42,8 @@ public class Messanger extends Shell implements IMessageReceiver {
 	public Messanger(Display display) {
 		super(display, SWT.SHELL_TRIM);
 		
+		server = new Server();
+		
 		List list = new List(this, SWT.BORDER);
 		list.setBounds(170, 10, 414, 383);
 		
@@ -52,18 +54,21 @@ public class Messanger extends Shell implements IMessageReceiver {
 		btnSend.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 			}
 		});
 		btnSend.setBounds(509, 397, 75, 25);
 		btnSend.setText("Send");
 		
-		List list_1 = new List(this, SWT.BORDER);
-		list_1.setBounds(10, 10, 154, 356);
+		List allChats = new List(this, SWT.BORDER);
+		allChats.setBounds(10, 10, 154, 356);
 		
 		Button btnNewButton = new Button(this, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				Chat c = new Chat(txtLab.getText());
+				server.addReceiver(c);
 			}
 		});
 		btnNewButton.setBounds(10, 399, 154, 25);
@@ -87,29 +92,5 @@ public class Messanger extends Shell implements IMessageReceiver {
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
-	}
-
-	@Override
-	public void receive(String from, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getHost() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setHost(String host) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void receive(String from, String name, String message) {
-		// TODO Auto-generated method stub
-		
 	}
 }

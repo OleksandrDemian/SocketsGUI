@@ -12,13 +12,16 @@ public class Server extends Thread {
 	private Socket s;
 	private IMessageReceiver receiver;
 	private ArrayList<IMessageReceiver> receivers = new ArrayList<IMessageReceiver>();
+	private boolean single = false;
 	
 	public Server(IMessageReceiver receiver){
 		this.receiver = receiver;
+		single = true;
 		start();
 	}
 	
 	public Server(){
+		single = false;
 		start();
 	}
 	
@@ -37,7 +40,14 @@ public class Server extends Thread {
 				BufferedReader in = new BufferedReader(isr);
 				String message = in.readLine();
 				String s[] = message.split(": ");
-				receiver.receive(s[0], s[1], s[2]);
+				if(single) {
+					receiver.receive(s[0], s[1], s[2]);
+				} else {
+					for(int i = 0; i < receivers.size(); i++){
+						if(receivers.get(i).getHost().equals(s[0]))
+							receivers.get(i).receive(s[0], s[2]);
+					}
+				}
 			} catch (IOException e) {
 				System.out.println("Server.run: Connesione chiusa");
 			}
@@ -45,7 +55,8 @@ public class Server extends Thread {
 	}
 	
 	public void addReceiver(IMessageReceiver receiver){
-		
+		receivers.add(receiver);
+		System.out.println("New receiver: " + receiver.getHost());
 	}
 	
 	public void stopServer(){
