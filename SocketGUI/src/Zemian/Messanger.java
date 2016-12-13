@@ -90,12 +90,6 @@ public class Messanger extends Shell implements IMessageReceiver {
 	}
 
 	@Override
-	public void receive(String from, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String getHost() {
 		// TODO Auto-generated method stub
 		return null;
