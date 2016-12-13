@@ -21,12 +21,6 @@ public class Chat implements IMessageReceiver {
 	}
 
 	@Override
-	public void receive(String from, String message) {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
 	public String getHost() {
 		// TODO Auto-generated method stub
 		System.out.println(host);
@@ -36,7 +30,6 @@ public class Chat implements IMessageReceiver {
 	@Override
 	public void receive(String from, String name, String message) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

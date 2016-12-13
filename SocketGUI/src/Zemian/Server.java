@@ -45,7 +45,7 @@ public class Server extends Thread {
 				} else {
 					for(int i = 0; i < receivers.size(); i++){
 						if(receivers.get(i).getHost().equals(s[0]))
-							receivers.get(i).receive(s[0], s[2]);
+							receivers.get(i).receive(s[0], s[1], s[2]);
 					}
 				}
 			} catch (IOException e) {

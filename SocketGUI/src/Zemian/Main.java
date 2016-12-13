@@ -130,20 +130,6 @@ public class Main implements IMessageReceiver {
 	}
 
 	@Override
-	public void receive(String from, String message) {
-		
-	}
-	
-	@Override
-	public void receive(String from, String name, String message) {
-		Display.getDefault().asyncExec(new Runnable(){
-			public void run(){
-				list.add(name + ": " + message);
-			}
-		});
-	}
-
-	@Override
 	public void setHost(String host) {
 		
 	}
@@ -151,5 +137,15 @@ public class Main implements IMessageReceiver {
 	@Override
 	public String getHost() {
 		return null;
+	}
+
+	@Override
+	public void receive(String from, String name, String message) {
+		// TODO Auto-generated method stub
+		Display.getDefault().asyncExec(new Runnable(){
+			public void run(){
+				list.add(from + ": " + message);
+			}
+		});
 	}
 }

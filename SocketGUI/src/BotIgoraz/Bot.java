@@ -6,36 +6,54 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Bot extends Thread{
+import Zemian.Client;
+import Zemian.IMessageReceiver;
+import Zemian.Server;
+
+public class Bot extends Thread implements IMessageReceiver {
 	ServerSocket ss;
 	Socket socket;
+	Server server;
 	Main main;
+	Client c;
 	
 	public Bot(Main main){
 		this.main = main;
+		server = new Server(this);
+		c = new Client();
 	}
-	
-	public void run(){
-		try {
-			ss = new ServerSocket(9080);
-			socket = ss.accept();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		while(true){
-			InputStreamReader iSr;
-			try {
-				iSr = new InputStreamReader(socket.getInputStream());
-				BufferedReader in = new BufferedReader(iSr);
-				String message = in.readLine();
-				System.out.println("Il server riceve:" + message);
-				String s[] = message.split(": ");
-				main.putList(s[1]);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+	@Override
+	public void setHost(String host) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getHost() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void receive(String from, String name, String message) {
+		// TODO Auto-generated method stub
+		main.putList(from+"."+name+": "+message);
+		message = message.toLowerCase();
+		c.setPrefix(from);
+		switch(message){
+		case "come ti chiami?":
+			c.invia("ZaneaBot", "Sono ZaneaBot!");
+			break;
+		case "come mi chiamo?":
+		case "chi sono io?":
+			System.out.println("entrato");
+			c.invia("ZaneaBot", "Ti chiami " + name);
+			break;
+		case "somma":
+		case "fammi una somma":
+			c.invia("ZaneaBot", "Non ancora");
+			break;
 		}
 	}
 }
