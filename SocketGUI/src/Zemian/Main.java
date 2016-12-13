@@ -20,7 +20,6 @@ public class Main implements IMessageReceiver {
 	private Button btnSetPrefix;
 	private List list;
 	private Text nameInput;
-	private String name = "Nameless";
 	private Utente utente = new Utente();
 
 	/**
@@ -147,5 +146,11 @@ public class Main implements IMessageReceiver {
 	@Override
 	public String getHost() {
 		return null;
+	}
+
+	@Override
+	public void receive(String from, String name, String message) {
+		// TODO Auto-generated method stub
+		
 	}
 }
