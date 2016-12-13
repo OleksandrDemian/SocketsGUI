@@ -69,14 +69,4 @@ public class Server extends Thread {
 		}
 		System.out.println("Chiudo is server");
 	}
-	
-	private boolean isAvailable(int port){
-		try {
-			ServerSocket check = new ServerSocket(port);
-		} catch (IOException e) {
-			return false;
-		}
-		
-		return true;
-	}
 }

@@ -14,6 +14,7 @@ public class Messanger extends Shell {
 	private Text txtLab;
 	private Utente utente = new Utente();
 	private Server server;
+	Chat chat = null;
 	
 	/**
 	 * Launch the application.
@@ -67,8 +68,11 @@ public class Messanger extends Shell {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Chat c = new Chat(txtLab.getText());
-				server.addReceiver(c);
+				String host = txtLab.getText();
+				if(Utilities.isAvailable(host)){
+					chat = new Chat(host);
+					allChats.add(host);
+				}
 			}
 		});
 		btnNewButton.setBounds(10, 399, 154, 25);
@@ -78,6 +82,10 @@ public class Messanger extends Shell {
 		txtLab.setText("Lab06_");
 		txtLab.setBounds(10, 372, 154, 21);
 		createContents();
+	}
+	
+	void addChat(){
+		server.addReceiver(chat);
 	}
 
 	/**
