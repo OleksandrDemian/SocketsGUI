@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server extends Thread {
 	
-	ServerSocket ss;
-	Socket s;
-	IMessageReceiver receiver;
+	private ServerSocket ss;
+	private Socket s;
+	private IMessageReceiver receiver;
+	private ArrayList<IMessageReceiver> receivers = new ArrayList<IMessageReceiver>();
 	
 	public Server(IMessageReceiver receiver){
 		this.receiver = receiver;
@@ -35,7 +37,7 @@ public class Server extends Thread {
 				BufferedReader in = new BufferedReader(isr);
 				String message = in.readLine();
 				String s[] = message.split(": ");
-				receiver.receive(s[1], s[2]);
+				receiver.receive(s[0], s[1], s[2]);
 			} catch (IOException e) {
 				System.out.println("Server.run: Connesione chiusa");
 			}
